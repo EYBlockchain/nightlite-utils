@@ -1,0 +1,52 @@
+{
+  "name": "nightlite-utils",
+  "version": "1.0.0",
+  "description": "A utility package for common math and formatting functions",
+  "main": "index.js",
+  "scripts": {
+    "format": "cod-scripts format",
+    "lint": "cod-scripts lint",
+    "lint:md": "markdownlint -i node_modules -i build .",
+    "validate": "cod-scripts validate",
+    "test": "jest --verbose --runInBand ./__tests__/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EYBlockchain/nightlite-utils.git",
+    "directory": "nightlite-utils"
+  },
+  "contributors": [
+    "Chaitanya Konda <CKonda@uk.ey.com>",
+    "Duncan Westland <duncan.westland@uk.ey.com>",
+    "Michael Connor <Michael.Connor@uk.ey.com>",
+    "Miranda Wood <miranda.wood@uk.ey.com>",
+    "Liju Jose <Liju.Jose@gds.ey.com>"
+  ],
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "cod-scripts": "^3.3.0",
+    "markdownlint-cli": "^0.18.0",
+    "prettier-plugin-solidity": "^1.0.0-alpha.31",
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.43",
+    "cli-progress": "^2.1.1",
+    "eslint": "^6.8.0",
+    "hex-to-binary": "^1.0.1",
+    "jsonfile": "^5.0.0",
+    "keccak": "^2.1.0",
+    "safe-buffer": "^5.1.2",
+    "winston": "^3.2.1"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cod-scripts pre-commit",
+      "commit-msg": "cod-scripts commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
