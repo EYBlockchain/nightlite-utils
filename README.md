@@ -7,5 +7,5 @@
 
 # Nightlite-Utils
 
-This library strips down the main Nightfall repository to isolate and modularize utility functions
+This library strips down the main Nightfall repository to isolate and modularize utility functions.
 So, it can be used in other applications as node module.
