@@ -25,18 +25,14 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "cod-scripts": "^3.3.0",
+    "eslint": "^6.8.0",
     "markdownlint-cli": "^0.18.0",
     "prettier-plugin-solidity": "^1.0.0-alpha.31",
     "jest": "^24.8.0"
   },
   "dependencies": {
-    "big-integer": "^1.6.43",
-    "cli-progress": "^2.1.1",
-    "eslint": "^6.8.0",
-    "hex-to-binary": "^1.0.1",
-    "jsonfile": "^5.0.0",
+    "big-integer": "^1.6.48",
     "keccak": "^2.1.0",
-    "safe-buffer": "^5.1.2",
     "winston": "^3.2.1"
   },
   "publishConfig": {

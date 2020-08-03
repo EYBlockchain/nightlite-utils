@@ -6,5 +6,7 @@ module.exports = {
   rules: {
     'no-restricted-syntax': 'off',
     'no-plusplus': 'off',
+    'no-bitwise': 'off',
+    'no-constant-condition': 'off',
   }
 };
