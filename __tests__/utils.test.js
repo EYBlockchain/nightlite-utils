@@ -1,41 +1,38 @@
 const {
+  parseToDigitsArray,
+  // add,
+  // multiplyByNumber,
+  // convertBase,
+  // strip0x,
   isHex,
   requireHex,
+  randomHex,
+  // ensure0x,
   utf8StringToHex,
   hexToUtf8String,
   asciiToHex,
   hexToAscii,
-  // ensure0x,
-  // strip0x,
   hexToBinArray,
   hexToBin,
   hexToBytes,
   hexToDec,
   hexToField,
+  // leftPadHex,
+  // truncateHex,
+  // resizeHex,
+  binToLimbs,
+  hexToBinLimbs,
+  binToHex,
   hexToFieldLimbs,
   decToHex,
   // decToBin,
   binToDec,
-  binToHex,
-  // isProbablyBinary,
+  // decToBinLimbs,
   // fieldsToDec,
-  // xor,
-  // concatenate,
+  // flattenArray,
+
   shaHash,
   mimcHash,
-  // add,
-  // parseToDigitsArray,
-  // convertBase,
-  // splitDecToBitsN,
-  hexToBinLimbs,
-  binToLimbs,
-  randomHex,
-  // flattenDeep,
-  // padHex,
-  // leftPadHex,
-  // formatInputsForZkSnark,
-  // gasUsedStats,
-  // setZokratesPrime,
 } = require('../index');
 
 const dec = '17408914224622445472';
@@ -164,6 +161,10 @@ describe('conversions.js tests', () => {
     test('randomHex should produce a random hex string', async () => {
       const rnd = await randomHex(32);
       expect(2 + 64).toEqual(rnd.length);
+    });
+
+    test('parseToDigitsArray shaould parse hex to decimal integer array', () => {
+      expect(parseToDigitsArray('f', 16)).toEqual([15]);
     });
   });
 
