@@ -7,12 +7,12 @@ const {
   hexToAscii,
   // ensure0x,
   // strip0x,
+  hexToBinArray,
   hexToBin,
-  hexToBinSimple,
   hexToBytes,
   hexToDec,
   hexToField,
-  hexToFieldPreserve,
+  hexToFieldLimbs,
   decToHex,
   // decToBin,
   binToDec,
@@ -22,14 +22,13 @@ const {
   // xor,
   // concatenate,
   shaHash,
-  concatenateThenHash,
+  mimcHash,
   // add,
   // parseToDigitsArray,
   // convertBase,
   // splitDecToBitsN,
-  splitHexToBitsN,
-  splitAndPadBitsN,
-  leftPadBitsN,
+  hexToBinLimbs,
+  binToLimbs,
   randomHex,
   // flattenDeep,
   // padHex,
@@ -72,12 +71,12 @@ describe('conversions.js tests', () => {
       expect(hexToField('0x1e', 25)).toEqual('5'); // 30(dec) = 0x1e mod 25 = 5
     });
 
-    test('hexToBin should correctly convert a hex string into a bit string array', () => {
-      expect(hexToBin('0xa1')).toEqual(['1', '0', '1', '0', '0', '0', '0', '1']);
+    test('hexToBinArray should correctly convert a hex string into a bit string array', () => {
+      expect(hexToBinArray('0xa1')).toEqual(['1', '0', '1', '0', '0', '0', '0', '1']);
     });
 
-    test('hexToBinSimple should correctly convert a hex string into a bit string', () => {
-      expect(hexToBinSimple('0xa1')).toEqual('10100001');
+    test('hexToBin should correctly convert a hex string into a bit string', () => {
+      expect(hexToBin('0xa1')).toEqual('10100001');
     });
 
     test('hexToByte should correctly convert hex into an array of decimal byte strings', () => {
@@ -88,14 +87,14 @@ describe('conversions.js tests', () => {
       expect(hexToDec(hex)).toEqual(dec);
     });
 
-    test(`hexToFieldPreserve should correctly convert hex into a 'blocks' of finite field elements, of specified bit size, in decimal representation`, () => {
-      expect(hexToFieldPreserve('0x1e', 2)).toEqual(['1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2]
-      expect(hexToFieldPreserve('0x1e', 2, 7)).toEqual(['0', '0', '0', '0', '1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2] = [0,0,0,0,1,3,2]
-      expect(hexToFieldPreserve('0x1e', 3, 7)).toEqual(['0', '0', '0', '0', '0', '3', '6']); // 0x1e = 30 = 11110 = [011, 110] = [3,6] = [0,0,0,0,0,3,6]
-      expect(hexToFieldPreserve('0x1e', 4, 2)).toEqual(['1', '14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14]
-      expect(hexToFieldPreserve('0x1e', 4, 1, true)).toEqual(['14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; but we've specified that we want to silence warnings, to the second limb is chopped off silently.
+    test(`hexToFieldLimbs should correctly convert hex into a 'blocks' of finite field elements, of specified bit size, in decimal representation`, () => {
+      expect(hexToFieldLimbs('0x1e', 2)).toEqual(['1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2]
+      expect(hexToFieldLimbs('0x1e', 2, 7)).toEqual(['0', '0', '0', '0', '1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2] = [0,0,0,0,1,3,2]
+      expect(hexToFieldLimbs('0x1e', 3, 7)).toEqual(['0', '0', '0', '0', '0', '3', '6']); // 0x1e = 30 = 11110 = [011, 110] = [3,6] = [0,0,0,0,0,3,6]
+      expect(hexToFieldLimbs('0x1e', 4, 2)).toEqual(['1', '14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14]
+      expect(hexToFieldLimbs('0x1e', 4, 1, true)).toEqual(['14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; but we've specified that we want to silence warnings, to the second limb is chopped off silently.
       expect(() => {
-        hexToFieldPreserve('0x1e', 4, 1);
+        hexToFieldLimbs('0x1e', 4, 1);
       }).toThrow(); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; so should throw, because silenceWarnings is not specified
     });
 
@@ -136,8 +135,8 @@ describe('conversions.js tests', () => {
   });
 
   describe('Utility Functions', () => {
-    test('splitHexToBitsN should split a decimal string into chunks of size N bits (N=8 in this test)', () => {
-      expect(splitHexToBitsN(hex, 8)).toEqual([
+    test('hexToBinLimbs should split a decimal string into chunks of size N bits (N=8 in this test)', () => {
+      expect(hexToBinLimbs(hex, 8)).toEqual([
         '11110001',
         '10011000',
         '11100011',
@@ -149,8 +148,8 @@ describe('conversions.js tests', () => {
       ]);
     });
 
-    test('splitAndPadBitsN should split a bit string into chunks of size N bits (N=8 in this test), and pad the left-most chunk with zeros', () => {
-      expect(splitAndPadBitsN(bin, 8)).toEqual([
+    test('binToLimbs should split a bit string into chunks of size N bits (N=8 in this test), and pad the left-most chunk with zeros', () => {
+      expect(binToLimbs(bin, 8)).toEqual([
         '11110001',
         '10011000',
         '11100011',
@@ -160,10 +159,6 @@ describe('conversions.js tests', () => {
         '10100011',
         '10100000',
       ]);
-    });
-
-    test('leftPadBitsN should split a bit string into chunks of size N bits (N=8 in this test), and pad the left-most chunk with zeros', () => {
-      expect(leftPadBitsN('1', 20)).toEqual('00000000000000000001');
     });
 
     test('randomHex should produce a random hex string', async () => {
@@ -175,18 +170,19 @@ describe('conversions.js tests', () => {
   describe('shaHash functions', () => {
     test('shaHash() should correctly hash a number', () => {
       const testHash = shaHash('0x0000000000002710a48eb90d402c7d1fcd8d31e3cc9af568');
-      const hash = '0xb5a95142b8fa2cd63d51e6e7f6584186ce955be1c6bebc20d03f9148b8886fea';
+      const hash = '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
       expect(testHash).toEqual(hash);
     });
+  });
 
-    test('concatenateThenHash should correctly concatenate hex elements of an array and hash the concatenation', () => {
-      const testHash = concatenateThenHash(
-        '0x0000000000002710',
-        '0xa48eb90d402c7d1f',
-        '0xcd8d31e3cc9af568',
+  describe('mimcHash functions', () => {
+    test('mimcHash() should correctly hash a number', () => {
+      const testHash = mimcHash(
+        [BigInt('0x0000000000002710a48eb90d402c7d1fcd8d31e3cc9af568')],
+        'BLS12_377',
       );
-      const hash = '0xb5a95142b8fa2cd63d51e6e7f6584186ce955be1c6bebc20d03f9148b8886fea';
-      expect(testHash).toEqual(hash);
+      const hash = '6401499393066932417511074960982810456604635503793276426486794047153089421441';
+      expect(testHash.toString()).toEqual(hash);
     });
   });
 });
