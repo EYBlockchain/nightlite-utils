@@ -2,12 +2,12 @@ const {
   parseToDigitsArray,
   // add,
   // multiplyByNumber,
-  // convertBase,
-  // strip0x,
+  convertBase,
+  strip0x,
   isHex,
   requireHex,
   randomHex,
-  // ensure0x,
+  ensure0x,
   utf8StringToHex,
   hexToUtf8String,
   asciiToHex,
@@ -114,6 +114,14 @@ describe('conversions.js tests', () => {
         requireHex('0x02a7ce1bffb62c13bff46da151f1639b764602d56c8d4839d6cf2e57825c86bd');
       }).not.toThrow();
     });
+
+    test('strip0x should stip 0x', () => {
+      expect(strip0x('0x1e')).toBe('1e');
+    });
+
+    test('ensure0x should append 0x to hex string', () => {
+      expect(ensure0x('1e')).toBe('0x1e');
+    });
   });
 
   describe('Functions on Binary Values', () => {
@@ -163,8 +171,12 @@ describe('conversions.js tests', () => {
       expect(2 + 64).toEqual(rnd.length);
     });
 
-    test('parseToDigitsArray shaould parse hex to decimal integer array', () => {
+    test('parseToDigitsArray should parse hex to decimal integer array', () => {
       expect(parseToDigitsArray('f', 16)).toEqual([15]);
+    });
+
+    test('convertBase should hex to decimal integer', () => {
+      expect(convertBase('f', 16, 10)).toEqual('15');
     });
   });
 
