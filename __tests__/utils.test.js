@@ -48,9 +48,7 @@ describe('conversions.js tests', () => {
 
     test('hexToUtf8 should correctly convert hex into an utf8 string (and vice versa)', () => {
       expect(
-        hexToUtf8(
-          '0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23',
-        ),
+        hexToUtf8('0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23'),
       ).toEqual('!@$%^&*()_+1234567890-=:"|;,./<>?`~#');
       expect(utf8StringToHex('!@$%^&*()_+1234567890-=:"|;,./<>?`~#')).toEqual(
         '0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23',
