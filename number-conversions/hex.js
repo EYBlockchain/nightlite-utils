@@ -15,21 +15,28 @@ function strip0x(hex) {
   return hex.toString();
 }
 
+function isHex(value) {
+  if (typeof value !== 'string') return false;
+  if (value.indexOf('0x') !== 0) return false;
+  const regexp = /^[0-9a-fA-F]+$/;
+  return regexp.test(strip0x(value));
+}
+
+// Same as `isHex`, but throws errors.
+function requireHex(value) {
+  if (typeof value !== 'string') throw new Error(`value ${value} is not a string`);
+  if (value.indexOf('0x') !== 0) throw new Error(`value ${value} missing 0x prefix`);
+  const regexp = /^[0-9a-fA-F]+$/;
+  if (!regexp.test(strip0x(value))) throw new Error(`value ${value} is not hex`);
+}
+
 function ensure0x(hex = '') {
   const hexString = hex.toString();
-  if (typeof hexString === 'string' && hexString.indexOf('0x') !== 0) {
+  if (hexString.indexOf('0x') !== 0) {
     return `0x${hexString}`;
   }
+  requireHex(hexString);
   return hexString;
-}
-
-function isHex(h) {
-  const regexp = /^[0-9a-fA-F]+$/;
-  return regexp.test(strip0x(h));
-}
-
-function requireHex(value) {
-  if (isHex(value) === false) throw new Error('value is not hex');
 }
 
 /**
@@ -67,7 +74,7 @@ function resizeHex(hexStr, n) {
   return ensure0x(hexStr);
 }
 
-function hexToUtf8String(hex) {
+function hexToUtf8(hex) {
   const cleanHex = strip0x(hex).replace(/00/g, '');
 
   const buf = Buffer.from(cleanHex, 'hex');
@@ -118,10 +125,7 @@ function hexToBytes(hex) {
  * Converts hex strings to decimal values
  */
 function hexToDec(hexStr) {
-  if (hexStr.substring(0, 2) === '0x') {
-    return convertBase(hexStr.substring(2).toLowerCase(), 16, 10);
-  }
-  return convertBase(hexStr.toLowerCase(), 16, 10);
+  return convertBase(strip0x(hexStr).toLowerCase(), 16, 10);
 }
 
 /** converts a hex string to an element of a Finite Field GF(fieldSize) (note, decimal representation is used for all field elements)
@@ -206,7 +210,7 @@ module.exports = {
   leftPadHex,
   truncateHex,
   resizeHex,
-  hexToUtf8String,
+  hexToUtf8,
   hexToAscii,
   hexToBinArray,
   hexToBin,

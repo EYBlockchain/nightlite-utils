@@ -8,7 +8,7 @@ const {
   // leftPadHex,
   // truncateHex,
   // resizeHex,
-  hexToUtf8String,
+  hexToUtf8,
   hexToAscii,
   hexToBinArray,
   hexToBin,
@@ -46,16 +46,16 @@ describe('conversions.js tests', () => {
       expect(hexToAscii(asciiToHex('hello'))).toEqual('hello');
     });
 
-    test('hexToUtf8String should correctly convert hex into an utf8 string (and vice versa)', () => {
+    test('hexToUtf8 should correctly convert hex into an utf8 string (and vice versa)', () => {
       expect(
-        hexToUtf8String(
+        hexToUtf8(
           '0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23',
         ),
       ).toEqual('!@$%^&*()_+1234567890-=:"|;,./<>?`~#');
       expect(utf8StringToHex('!@$%^&*()_+1234567890-=:"|;,./<>?`~#')).toEqual(
         '0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23',
       );
-      expect(hexToUtf8String(utf8StringToHex('hello'))).toEqual('hello');
+      expect(hexToUtf8(utf8StringToHex('hello'))).toEqual('hello');
     });
 
     test('hexToField should correctly convert hex into a finite field element, in decimal representation', () => {

@@ -7,7 +7,7 @@ const { ensure0x } = require('./hex.js');
  * if the string is too short to fill the output hex string, it is padded on the left with 0s
  * if the string is too long, an error is thrown
  */
-function utf8StringToHex(str, outLengthBytes) {
+function utf8ToHex(str, outLengthBytes) {
   const outLength = outLengthBytes * 2; // work in characters rather than bytes
   const buf = Buffer.from(str, 'utf8');
   let hex = buf.toString('hex');
@@ -35,6 +35,6 @@ function asciiToHex(str, outLengthBytes) {
 }
 
 module.exports = {
-  utf8StringToHex,
+  utf8ToHex,
   asciiToHex,
 };

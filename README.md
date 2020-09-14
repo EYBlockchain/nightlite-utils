@@ -31,7 +31,7 @@ In your NodeJS project:
     leftPadHex,
     truncateHex,
     resizeHex,
-    hexToUtf8String,
+    hexToUtf8,
     hexToAscii,
     hexToBinArray,
     hexToBin,
@@ -79,8 +79,7 @@ Clone the repo. `npm i`
 
 ### Test with yalc
 
-If you've made local changes to this repo, and would like to test whether those (unpublished)
-changes will work with some dependent zkp appliation (zApp)...
+If you've made local changes to this repo, and would like to test whether those (unpublished) changes will work with some dependent zkp appliation (zApp)...
 
 ...then you’ll need to install your local, ‘branched’ version of `zkp-utils` in your zApp.
 
@@ -89,15 +88,13 @@ cd path/to/zkp-utils/
 yalc publish
 ```
 
-You should see something like "`@eyblockchain/zkp-utils@0.0.0-3df45b8c published in store.`". Notice
-the ‘signature’ `3df45b8c` .
+You should see something like "`@eyblockchain/zkp-utils@0.0.0-3df45b8c published in store.`". Notice the ‘signature’ `3df45b8c` .
 
 ```sh
 cd path/to/your/zApp/
 ```
 
-Remove the package-lock.json and the node_modules from your zApp's root (if they exist on your
-machine).
+Remove the package-lock.json and the node_modules from your zApp's root (if they exist on your machine).
 
 Then:
 
@@ -105,10 +102,7 @@ Then:
 yalc add @eyblockchain/zkp-utils
 ```
 
-You’ll see that this has ‘swapped-in’ the ‘published’ (yalc version) of `zkp-utils` in the
-`package.json`. It’s also created `.yalc.lock` (which shows that you’ve replaced the ‘proper’ npm
-package of `zkp-utils` with your ‘yalc version’ (see the `signature` field in this file, which
-should match the signature from earlier)).
+You’ll see that this has ‘swapped-in’ the ‘published’ (yalc version) of `zkp-utils` in the `package.json`. It’s also created `.yalc.lock` (which shows that you’ve replaced the ‘proper’ npm package of `zkp-utils` with your ‘yalc version’ (see the `signature` field in this file, which should match the signature from earlier)).
 
 Now install node modules:
 
@@ -131,5 +125,4 @@ volumes:
   - ./.yalc:/app/.yalc # <<< ADD THIS LINE (or something similar)!!!
 ```
 
-When you're happy that your local changes to `zkp-utils` work and you wish to create a PR, you MUST
-remove any references to `yalc`, or the PR shouldn't be accepted.
+When you're happy that your local changes to `zkp-utils` work and you wish to create a PR, you MUST remove any references to `yalc`, or the PR shouldn't be accepted.
