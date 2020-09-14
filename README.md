@@ -1,18 +1,18 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [zkp-utils](#zkp-utils)
-  - [Install](#install)
-  - [Functions](#functions)
-  - [Developer](#developer)
-    - [Test](#test)
-    - [Test with yalc](#test-with-yalc)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # zkp-utils
 
 This library contains many utility functions for use in zkp applications.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Install](#install)
+- [Functions](#functions)
+- [Developer](#developer)
+  - [Test](#test)
+  - [Test with yalc](#test-with-yalc)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Install
 
