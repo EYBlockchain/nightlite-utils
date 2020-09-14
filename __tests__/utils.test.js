@@ -1,36 +1,31 @@
 const {
   parseToDigitsArray,
-  // add,
-  // multiplyByNumber,
   convertBase,
   strip0x,
+  ensure0x,
   isHex,
   requireHex,
-  randomHex,
-  ensure0x,
-  utf8StringToHex,
+  // leftPadHex,
+  // truncateHex,
+  // resizeHex,
   hexToUtf8String,
-  asciiToHex,
   hexToAscii,
   hexToBinArray,
   hexToBin,
   hexToBytes,
   hexToDec,
   hexToField,
-  // leftPadHex,
-  // truncateHex,
-  // resizeHex,
-  binToLimbs,
   hexToBinLimbs,
+  hexToDecLimbs,
+  randomHex,
+  utf8StringToHex,
+  asciiToHex,
   binToHex,
-  hexToFieldLimbs,
+  binToDec,
+  binToLimbs,
   decToHex,
   // decToBin,
-  binToDec,
   // decToBinLimbs,
-  // fieldsToDec,
-  // flattenArray,
-
   shaHash,
   mimcHash,
 } = require('../index');
@@ -84,14 +79,14 @@ describe('conversions.js tests', () => {
       expect(hexToDec(hex)).toEqual(dec);
     });
 
-    test(`hexToFieldLimbs should correctly convert hex into a 'blocks' of finite field elements, of specified bit size, in decimal representation`, () => {
-      expect(hexToFieldLimbs('0x1e', 2)).toEqual(['1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2]
-      expect(hexToFieldLimbs('0x1e', 2, 7)).toEqual(['0', '0', '0', '0', '1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2] = [0,0,0,0,1,3,2]
-      expect(hexToFieldLimbs('0x1e', 3, 7)).toEqual(['0', '0', '0', '0', '0', '3', '6']); // 0x1e = 30 = 11110 = [011, 110] = [3,6] = [0,0,0,0,0,3,6]
-      expect(hexToFieldLimbs('0x1e', 4, 2)).toEqual(['1', '14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14]
-      expect(hexToFieldLimbs('0x1e', 4, 1, true)).toEqual(['14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; but we've specified that we want to silence warnings, to the second limb is chopped off silently.
+    test(`hexToDecLimbs should correctly convert hex into a 'blocks' of finite field elements, of specified bit size, in decimal representation`, () => {
+      expect(hexToDecLimbs('0x1e', 2)).toEqual(['1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2]
+      expect(hexToDecLimbs('0x1e', 2, 7)).toEqual(['0', '0', '0', '0', '1', '3', '2']); // 0x1e = 30 = 11110 = [01, 11, 10] = [1,3,2] = [0,0,0,0,1,3,2]
+      expect(hexToDecLimbs('0x1e', 3, 7)).toEqual(['0', '0', '0', '0', '0', '3', '6']); // 0x1e = 30 = 11110 = [011, 110] = [3,6] = [0,0,0,0,0,3,6]
+      expect(hexToDecLimbs('0x1e', 4, 2)).toEqual(['1', '14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14]
+      expect(hexToDecLimbs('0x1e', 4, 1)).toEqual(['14']); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; but we've specified that we want to silence warnings, to the second limb is chopped off silently.
       expect(() => {
-        hexToFieldLimbs('0x1e', 4, 1);
+        hexToDecLimbs('0x1e', 4, 1, true);
       }).toThrow(); // 0x1e = 30 = 11110 = [01, 1110] = [1,14] is longer than 1 limb; so should throw, because silenceWarnings is not specified
     });
 
@@ -115,7 +110,7 @@ describe('conversions.js tests', () => {
       }).not.toThrow();
     });
 
-    test('strip0x should stip 0x', () => {
+    test('strip0x should strip 0x', () => {
       expect(strip0x('0x1e')).toBe('1e');
     });
 

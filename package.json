@@ -6,7 +6,6 @@
   "scripts": {
     "format": "cod-scripts format",
     "lint": "cod-scripts lint",
-    "lint:md": "markdownlint -i node_modules -i build .",
     "validate": "cod-scripts validate",
     "test": "jest --verbose --runInBand ./__tests__/*.test.js"
   },
@@ -26,7 +25,6 @@
   "devDependencies": {
     "cod-scripts": "^3.3.0",
     "eslint": "^6.8.0",
-    "markdownlint-cli": "latest",
     "jest": "latest"
   },
   "dependencies": {
