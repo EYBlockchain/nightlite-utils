@@ -17,7 +17,7 @@ This library contains many utility functions for use in zkp applications.
 ## Install
 
 In your NodeJS project:  
-`npm i -s zkp-utils`
+`npm i zkp-utils`
 
 ## Functions
 
