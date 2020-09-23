@@ -1,5 +1,5 @@
 {
-  "name": "nightlite-utils",
+  "name": "zkp-utils",
   "version": "1.0.0",
   "description": "A utility package for common math and formatting functions",
   "main": "index.js",
@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EYBlockchain/nightlite-utils.git",
-    "directory": "nightlite-utils"
+    "url": "https://github.com/EYBlockchain/zkp-utils.git",
+    "directory": "zkp-utils"
   },
   "contributors": [
     "Chaitanya Konda <CKonda@uk.ey.com>",

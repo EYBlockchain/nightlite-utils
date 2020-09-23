@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 
+const { strip0x } = require('../../number-conversions');
+
 /**
  * Utility function to concatenate two hex strings and return as buffer
  * Looks like the inputs are somehow being changed to decimal!
@@ -18,7 +20,7 @@ function concatenate(a, b) {
 
 module.exports = function shaHash(...items) {
   const concatvalue = items
-    .map(item => Buffer.from(item, 'hex'))
+    .map(item => Buffer.from(strip0x(item), 'hex'))
     .reduce((acc, item) => concatenate(acc, item));
 
   const h = `0x${crypto

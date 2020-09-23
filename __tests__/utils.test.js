@@ -18,7 +18,7 @@ const {
   hexToBinLimbs,
   hexToDecLimbs,
   randomHex,
-  utf8StringToHex,
+  utf8ToHex,
   asciiToHex,
   binToHex,
   binToDec,
@@ -50,10 +50,10 @@ describe('conversions.js tests', () => {
       expect(
         hexToUtf8('0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23'),
       ).toEqual('!@$%^&*()_+1234567890-=:"|;,./<>?`~#');
-      expect(utf8StringToHex('!@$%^&*()_+1234567890-=:"|;,./<>?`~#')).toEqual(
+      expect(utf8ToHex('!@$%^&*()_+1234567890-=:"|;,./<>?`~#')).toEqual(
         '0x214024255e262a28295f2b313233343536373839302d3d3a227c3b2c2e2f3c3e3f607e23',
       );
-      expect(hexToUtf8(utf8StringToHex('hello'))).toEqual('hello');
+      expect(hexToUtf8(utf8ToHex('hello'))).toEqual('hello');
     });
 
     test('hexToField should correctly convert hex into a finite field element, in decimal representation', () => {
@@ -92,11 +92,7 @@ describe('conversions.js tests', () => {
       expect(isHex('0x02a7ce1bffb62c13bff46da151f1639b764602d56c8d4839d6cf2e57825c86bd')).toBe(
         true,
       );
-      expect(isHex('02a7ce1bffb62c13bff46da151f1639b764602d56c8d4839d6cf2e57825c86bd')).toBe(true);
-      expect(!isHex('0x2a7ce1bffb62c13bff46da151oopsf1639b764602d56c8d4839d6cf2e57825c86bd')).toBe(
-        true,
-      );
-      expect(isHex('1234567890')).toBe(true);
+      expect(isHex('02a7ce1bffb62c13bff46da151f1639b764602d56c8d4839d6cf2e57825c86bd')).toBe(false);
     });
 
     test('requireHex should fail if a number is not hex', () => {
@@ -176,8 +172,17 @@ describe('conversions.js tests', () => {
   describe('shaHash functions', () => {
     test('shaHash() should correctly hash a number', () => {
       const testHash = shaHash('0x0000000000002710a48eb90d402c7d1fcd8d31e3cc9af568');
-      const hash = '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+      const hash = '0xb5a95142b8fa2cd63d51e6e7f6584186ce955be1c6bebc20d03f9148b8886fea';
       expect(testHash).toEqual(hash);
+      console.log(shaHash('0x0000000000111111111111111111111111111111111111111111111111112111'));
+      console.log(
+        shaHash(
+          '0x0000000000000000000000008DA4140F09169A3c8DEfeE71BB8B74Ed0F831077',
+          '0x00000000000000000000000000000029',
+          '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+          '0x7ff5b7c190c9d2a9efbd7fda565854e3b5fcea1cb0be7f4d5b5920c938a5f0e7',
+        ),
+      );
     });
   });
 

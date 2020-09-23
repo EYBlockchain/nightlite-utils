@@ -56,9 +56,8 @@ function mimcpMp(x, k, seed, roundCount, exponent, m) {
 
 module.exports = function mimcHash(msgs, curve) {
   if (config[curve] === undefined) throw Error('Unknown curve type');
-  const { rounds } = config[curve];
-  const { exponent } = config[curve];
-  const { modulus } = config[curve];
+  const { rounds, exponent, modulus } = config[curve];
+
   // elipses means input stored in array called msgs
   const mimc = '6d696d63'; // this is 'mimc' in hex as a nothing-up-my-sleeve seed
   return mimcpMp(
