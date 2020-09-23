@@ -25,4 +25,4 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-       - run: npm run test
+      - run: npm run test
