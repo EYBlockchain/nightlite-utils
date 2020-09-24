@@ -174,15 +174,15 @@ describe('conversions.js tests', () => {
       const testHash = shaHash('0x0000000000002710a48eb90d402c7d1fcd8d31e3cc9af568');
       const hash = '0xb5a95142b8fa2cd63d51e6e7f6584186ce955be1c6bebc20d03f9148b8886fea';
       expect(testHash).toEqual(hash);
-      console.log(shaHash('0x0000000000111111111111111111111111111111111111111111111111112111'));
-      console.log(
-        shaHash(
-          '0x0000000000000000000000008DA4140F09169A3c8DEfeE71BB8B74Ed0F831077',
-          '0x00000000000000000000000000000029',
-          '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-          '0x7ff5b7c190c9d2a9efbd7fda565854e3b5fcea1cb0be7f4d5b5920c938a5f0e7',
-        ),
-      );
+      // console.log(shaHash('0x0000000000111111111111111111111111111111111111111111111111112111'));
+      // console.log(
+      //   shaHash(
+      //     '0x0000000000000000000000008DA4140F09169A3c8DEfeE71BB8B74Ed0F831077',
+      //     '0x00000000000000000000000000000029',
+      //     '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      //     '0x7ff5b7c190c9d2a9efbd7fda565854e3b5fcea1cb0be7f4d5b5920c938a5f0e7',
+      //   ),
+      // );
     });
   });
 
