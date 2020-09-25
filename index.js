@@ -1,5 +1,5 @@
 /**
-@module nightlite-utils
+@module zkp-utils
 @author Westlad,Chaitanya-Konda,iAmMichaelConnor
 @desc Set of utilities to manipulate variable into forms most liked by
 Ethereum and Zokrates
