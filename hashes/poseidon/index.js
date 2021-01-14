@@ -1,4 +1,4 @@
-const ZqField = require("ffjavascript").ZqField;
+const { ZqField } = require('ffjavascript');
 
 const { SNARK_SCALAR_FIELD, C, M } = require('./config');
 
@@ -14,10 +14,7 @@ const N_ROUNDS_P = [56, 57, 56, 60, 60, 63, 64, 63];
 const pow5 = a => F.mul(a, F.square(F.square(a)));
 
 module.exports = function poseidonHash(inputs) {
-  if (!Array.isArray(inputs) ||
-    !inputs.length ||
-    !(inputs.length < N_ROUNDS_P.length - 1)
-  ) {
+  if (!Array.isArray(inputs) || !inputs.length || !(inputs.length < N_ROUNDS_P.length - 1)) {
     throw Error('invalid inputs');
   }
 
@@ -27,7 +24,6 @@ module.exports = function poseidonHash(inputs) {
 
   let state = [...inputs.map(a => F.e(a)), BigInt(0)];
   for (let r = 0; r < nRoundsF + nRoundsP; r++) {
-
     state = state.map((a, i) => {
       return F.add(a, BigInt(C[t - 2][r * t + i]));
     });
@@ -40,11 +36,9 @@ module.exports = function poseidonHash(inputs) {
 
     // no matrix multiplication in the last round
     if (r < nRoundsF + nRoundsP - 1) {
+      // eslint-disable-next-line no-loop-func
       state = state.map((_, i) =>
-        state.reduce((acc, a, j) => F.add(
-          acc,
-          F.mul(BigInt(M[t - 2][j][i]), a)
-        ), F.zero)
+        state.reduce((acc, a, j) => F.add(acc, F.mul(BigInt(M[t - 2][j][i]), a)), F.zero),
       );
     }
   }
