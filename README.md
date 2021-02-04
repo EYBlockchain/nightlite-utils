@@ -17,7 +17,7 @@ This library contains many utility functions for use in zkp applications.
 ## Install
 
 In your NodeJS project:  
-`npm i zkp-utils`
+`npm i @eyblockchain/zkp-utils`
 
 ## Functions
 
