@@ -93,9 +93,7 @@ function hexToAscii(hex) {
  * for example (0xff -> [1,1,1,1,1,1,1,1]) 11111111
  */
 function hexToBinArray(hex) {
-  return parseInt(hex, 16)
-    .toString(2)
-    .split('');
+  return hexToBin(hex).split('')
 }
 
 /**
