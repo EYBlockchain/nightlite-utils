@@ -89,21 +89,19 @@ function hexToAscii(hex) {
 }
 
 /**
- * Converts hex strings into binary, so that they can be passed into merkle-proof.code
- * for example (0xff -> [1,1,1,1,1,1,1,1]) 11111111
- */
-function hexToBinArray(hex) {
-  return parseInt(hex, 16)
-    .toString(2)
-    .split('');
-}
-
-/**
  * The hexToBinary library was giving some funny values with 'undefined' elements within the binary string.
  * Using convertBase seems to be working nicely.
  */
 function hexToBin(hex) {
   return convertBase(strip0x(hex), 16, 2);
+}
+
+/**
+ * Converts hex strings into binary, so that they can be passed into merkle-proof.code
+ * for example (0xff -> [1,1,1,1,1,1,1,1]) 11111111
+ */
+function hexToBinArray(hex) {
+  return hexToBin(hex).split('');
 }
 
 /**
