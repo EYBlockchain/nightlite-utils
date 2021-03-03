@@ -28,6 +28,7 @@ const {
   // decToBinLimbs,
   shaHash,
   mimcHash,
+  poseidonHash,
 } = require('../index');
 
 const dec = '17408914224622445472';
@@ -193,6 +194,17 @@ describe('conversions.js tests', () => {
         'BLS12_377',
       );
       const hash = '6401499393066932417511074960982810456604635503793276426486794047153089421441';
+      expect(testHash.toString()).toEqual(hash);
+    });
+  });
+
+  describe('poseidonHash functions', () => {
+    test('poseidonHash() should correctly hash a number', () => {
+      const testHash = poseidonHash([
+        '0x0000000000002710a48eb90d402c7d1fcd8d31e3cc9af568',
+        '0x00000000000000000000000000000029',
+      ]);
+      const hash = '7310851731891122965306208066033090004239418097517634670336709823680483094248';
       expect(testHash.toString()).toEqual(hash);
     });
   });

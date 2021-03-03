@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "big-integer": "latest",
+    "ffjavascript": "^0.2.33",
     "keccak": "latest",
     "winston": "latest"
   },
